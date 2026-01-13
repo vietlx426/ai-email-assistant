@@ -2,7 +2,21 @@
 
 namespace App\Http\Resources;
 
-class EmailTemplateResource
-{
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
+class EmailTemplateResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'type' => $this->type,
+            'content' => $this->content,
+            'placeholders' => $this->placeholders,
+            'usage_count' => $this->usage_count,
+            'created_at' => $this->created_at->toDateTimeString(),
+        ];
+    }
 }

@@ -1,0 +1,17 @@
+.git
+.gitignore
+README.md
+.env
+.env.example
+.env.local
+.env.staging
+.env.production
+docker-compose.yml
+Dockerfile
+.dockerignore
+node_modules
+vendor
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*

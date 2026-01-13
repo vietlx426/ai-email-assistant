@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ai-email-assistant
+    container_name: ai-email-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./storage:/var/www/storage
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=sqlite
+      - DB_DATABASE=/var/www/database/database.sqlite
+    depends_on:
+      - redis
+    networks:
+      - ai-email-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: ai-email-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - ai-email-network
+
+  # Optional: Database UI for development
+  adminer:
+    image: adminer
+    container_name: ai-email-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - ai-email-network
+
+networks:
+  ai-email-network:
+    driver: bridge

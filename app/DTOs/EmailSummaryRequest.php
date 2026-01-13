@@ -2,7 +2,16 @@
 
 namespace App\DTOs;
 
-class EmailSummaryRequest
+readonly class EmailSummaryRequest
 {
+    public function __construct(
+        public string $emailThread,
+    ) {}
 
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            emailThread: $data['email_thread'],
+        );
+    }
 }
